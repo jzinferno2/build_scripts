@@ -1,4 +1,4 @@
-name: Building xmrig shib
+name: Building xmrig shib rx
 
 on:
   workflow_dispatch:
